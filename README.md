@@ -2,4 +2,3 @@
 Kelompok Montgomery:
 *Program Manajemen Password*
 1. 251401080 - Aksa Prawira Sukma
-2. 251401131 - OK Muhammad Hafiz
