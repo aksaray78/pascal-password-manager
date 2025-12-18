@@ -312,7 +312,10 @@ begin
                  readln;
                  end;
         else if choice = '7' then
-        exit
+        begin
+            clrscr;
+            halt;
+        end    
         else
             begin
                 writeln('Hanya terdapat 7 pilihan!');
@@ -328,6 +331,8 @@ end;
 // program utama
 var
     input_pin: string;
+    attempts: integer;
+    exit_choice: string;
 begin
     randomize;//tanpa randomize, hasil random akan selalu sama setiap program dijalankan
     clrscr;
@@ -337,6 +342,7 @@ begin
     readln(input_pin);
     forever_pin := input_pin;
 
+    attempts:=0;
     repeat
         clrscr;
         writeln('=== LOGIN ===');
@@ -344,11 +350,40 @@ begin
         readln(input_pin);
 
         if checkpin(input_pin) then
-            Menu()
+        begin
+            attempts:= 0;
+            Menu();
+        end
         else
         begin
-            writeln('PIN salah!');
+            attempts := attempts + 1;
+            writeln('PIN salah! (Kesempatan ulang = ', attempts,'/3)');
             readln;
+
+            if attempts = 3 then
+            begin
+                repeat
+                    clrscr;
+                    write('PIN salah 3 kali. Mau coba lagi? (Y/N): '); 
+                    readln(exit_choice);
+
+                if exit_choice = '' then
+                begin
+                    writeln('Input tidak boleh kosong!');
+                    readln;
+                end
+                else if (upcase(exit_choice[1]) <> 'Y') and (upcase(exit_choice[1]) <> 'N') then
+                begin
+                    writeln('Hanya Y atau N!');
+                    readln;
+                end;
+                until (exit_choice <> '') and ((upcase(exit_choice[1]) = 'Y') or (upcase(exit_choice[1]) = 'N'));
+
+                if upcase(exit_choice[1]) = 'N' then
+                    halt
+                else
+                    attempts := 0;
+            end;
         end;
     until false;
 end.
