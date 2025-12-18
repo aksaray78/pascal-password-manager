@@ -369,7 +369,7 @@ begin
 
                 if exit_choice = '' then
                 begin
-                    writeln('Input tidak boleh kosong!');
+                    writeln('Tidak boleh kosong!');
                     readln;
                 end
                 else if (upcase(exit_choice[1]) <> 'Y') and (upcase(exit_choice[1]) <> 'N') then
